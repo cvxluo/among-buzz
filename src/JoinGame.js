@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import './JoinGame.css';
 
+document.body.style.backgroundColor = "beige";
+
 function JoinGame(props) {    
 
     const [code, setCode] = useState('');
@@ -11,7 +13,6 @@ function JoinGame(props) {
         console.log("SUBMIT CALLED");
     }
 
-
     return (
         <div>
             <form onSubmit={onSubmit}>
@@ -20,7 +21,7 @@ function JoinGame(props) {
                     <input className = "button1 up"
                         type="text" 
                         placeholder = "Game PIN"
-                
+                        value = {code}
                         onChange={(event) => setCode(event.target.value)}
                     />
                 </label>
@@ -32,6 +33,7 @@ function JoinGame(props) {
         </div>
 
     );
+    
 }
 
 export default JoinGame;

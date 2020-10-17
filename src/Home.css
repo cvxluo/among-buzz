@@ -16,7 +16,11 @@
     cursor: pointer;
 }
 
-#
+#para{
+        font-family: Georgia, 'Times New Roman', Times, serif; 
+        font-size: 100px; 
+        color: rgb(56, 55, 55)
+}
 
 .split{
     height:100%;
@@ -41,16 +45,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    text-align : center;
 }
 
-.button:hover{
-    background-color: rgb(65, 130, 243);
-}
-
-
-@media (max-width: 768px) {
-    .button {
-        font-size: 40px; 
+@media (max-width:768px) {
+    .button{
+        font-size: 40px;
     }
 }

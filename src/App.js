@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import Home from './Home';
-import Map from './Map';
+import Game from './Game';
 
 function App() {
+
+  const [gameCode, setGameCode] = useState('');
+
   return (
     <div className="App">
-      <Home />
+      {
+        (gameCode) ?
+        <Game 
+        gameCode={gameCode}
+        />
+        :
+        <Home
+        changeGameCode={setGameCode}
+        />}
     </div>
   );
 }

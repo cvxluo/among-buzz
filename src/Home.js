@@ -11,7 +11,7 @@ function Home() {
     
   return (
     <div className="container">
-        <h1>IRL Among Us</h1>
+        <h1 id = "para">IRL Among Us</h1>
         {
             !isCreatingGame && !isJoiningGame &&
        <button className="split left button"
@@ -33,7 +33,6 @@ function Home() {
         >Join Game
         </button>
         }
-        <p>test</p>
         {isCreatingGame && <CreateGame />}
         {isJoiningGame && <JoinGame />}
     </div>

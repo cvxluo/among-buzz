@@ -20,6 +20,9 @@ function MapContainer(props) {
     const [activeMarker, setActiveMarker] = useState({});
 
 
+    console.log(latitude);
+    console.log(longitude);
+
 
     const onMarkerClick = (props, marker, e, i) => {
         showInfoWindow(true);
@@ -47,8 +50,8 @@ function MapContainer(props) {
 
 
     const style = {
-        width: '75%',
-        height: '75%'
+        width: '100%',
+        height: '95%'
     }
 
     return (
@@ -56,8 +59,8 @@ function MapContainer(props) {
             google={props.google} 
             zoom={20}
             center={{
-                lat: (latitude) ? latitude : 20,
-                lng: (longitude) ? longitude : 40,
+                lat: (latitude) ? latitude : 33.0,
+                lng: (longitude) ? longitude : -84.0,
             }}
             onClick={(_, map, coord) => {
                 if(markers.length < 5) {
@@ -65,8 +68,6 @@ function MapContainer(props) {
                         ...markers,
                         coord.latLng,
                     ]);
-                } else {
-                    console.log("Marker limit reached.")
                 }
             }}
             style={style}
@@ -92,8 +93,16 @@ function MapContainer(props) {
                     lat: (latitude) ? latitude : 20,
                     lng: (longitude) ? longitude : 40,
                 }}
-                onMouseover={() => console.log('mouseover')}
-                onClick={() => console.log('click')}
+                // onMouseover={() => console.log('mouseover')}
+                // onClick={() => console.log('click')}
+                onClick={(_, map, coord) => {
+                    if(markers.length < 5) {
+                        setMarkers([
+                            ...markers,
+                            coord.latLng,
+                        ]);
+                    }
+                }}
                 onMouseout={() => console.log('mouseout')}
                 strokeColor='transparent'
                 strokeOpacity={0}
