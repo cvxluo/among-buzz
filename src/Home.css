@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.button {
+    background-color: rgb(220, 234, 245);
+    color: rgb(56, 55, 55);
+    padding: 20px 20px;
+    text-align: center;
+    font-family: f;
+    font-size: 100px;
+    font-weight: bold;
+    position: fixed;
+    cursor: pointer;
+}
+
+#
+
+.split{
+    height:100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px; 
+}
+
+.left {
+    left:0;
+}
+
+.right {
+    right:0;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align : center;
+}
+
+.button:hover{
+    background-color: rgb(65, 130, 243);
+}
+
+
+@media (max-width: 768px) {
+    .button {
+        font-size: 40px; 
+    }
+}
