@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-
 import { Map, InfoWindow, Marker, Circle, GoogleApiWrapper } from 'google-maps-react';
 import { usePosition } from 'use-position';
 
@@ -21,14 +20,13 @@ function MapContainer(props) {
     console.log(longitude);
     */
 
-    const { markers, setMarkers } = props;
+    const { data } = props;
+
+    const tasks = data.tasks;
+    console.log(tasks);
 
     const [isShowingInfo, showInfoWindow] = useState(false);
     const [activeMarker, setActiveMarker] = useState({});
-
-
-    console.log(latitude);
-    console.log(longitude);
 
 
     const onMarkerClick = (props, marker, e, i) => {
@@ -37,14 +35,13 @@ function MapContainer(props) {
             'marker': marker,
             'index': i,
         });
-
     };
 
     const onInfoWindowOpen = (props, e) => {
         const button = (                        
             <button
                 onClick={event => {
-                    markers.splice(activeMarker.index, 1);
+                    tasks.splice(activeMarker.index, 1);
                     setActiveMarker({});
                     showInfoWindow(false);                
                 }}
@@ -54,6 +51,9 @@ function MapContainer(props) {
         );
         ReactDOM.render(React.Children.only(button), document.getElementById("iwc"));
     }
+
+
+    // 280991
 
     const style = {
         width: '100%',
@@ -68,59 +68,28 @@ function MapContainer(props) {
                 lat: (latitude) ? latitude : 33.0,
                 lng: (longitude) ? longitude : -84.0,
             }}
-            onClick={(_, map, coord) => {
-                if(markers.length < 5) {
-                    setMarkers([
-                        ...markers,
-                        coord.latLng,
-                    ]);
-                }
-            }}
             style={style}
-
-
         >
 
             {
-                markers.map(
+                tasks.map(
                     (coords, index) => (
-                        <Marker
+                        <Circle
+                            radius={4}
+                            center={{
+                                lat: parseFloat(coords.lat),
+                                lng: parseFloat(coords.long),
+                            }}
                             key={index}
-                            position={coords} 
-                            name={'test'}
-                            title={'test'}
-                            onClick={(props, marker, e) => onMarkerClick(props, marker, e, index)}
+                            strokeColor='transparent'
+                            strokeOpacity={0}
+                            strokeWeight={5}
+                            fillColor='#FF0000'
+                            fillOpacity={0.2}
                         />
                     )
                 )
             }
-
-            
-
-            <Circle
-                radius={4}
-                center={{
-                    lat: (latitude) ? latitude : 20,
-                    lng: (longitude) ? longitude : 40,
-                }}
-                
-                onMouseover={() => console.log('mouseover')}
-                onClick={() => console.log('click')}
-                onClick={(_, map, coord) => {
-                    if(markers.length < 5) {
-                        setMarkers([
-                            ...markers,
-                            coord.latLng,
-                        ]);
-                    }
-                }}
-                onMouseout={() => console.log('mouseout')}
-                strokeColor='transparent'
-                strokeOpacity={0}
-                strokeWeight={5}
-                fillColor='#FF0000'
-                fillOpacity={0.2}
-            />
 
             <InfoWindow
                 marker={activeMarker.marker}
@@ -136,12 +105,6 @@ function MapContainer(props) {
 
                     </div>
             </InfoWindow>
-
-            {/* <Marker
-                lat={11.0168}
-                lng={76.9558}
-                text="My Marker"
-            /> */}
         </Map>
     );
   }

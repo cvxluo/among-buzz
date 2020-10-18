@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './JoinGame.css';
 
-document.body.style.backgroundColor = "beige";
+document.body.style.backgroundColor = "pastel";
 
 function JoinGame(props) {    
 
@@ -10,6 +10,17 @@ function JoinGame(props) {
 
     const onSubmit = (event) => {
         event.preventDefault();
+        fetch('http://localhost:5000/join_game', {
+            method: 'POST',
+            body: code,
+        })
+        .then(response => response.text())
+        .then((data) => {
+            props.changeGameCode(code);
+            props.setTasks(JSON.parse(data));
+            console.log(data);
+        });
+
         console.log("SUBMIT CALLED");
     }
 

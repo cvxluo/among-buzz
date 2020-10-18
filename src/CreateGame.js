@@ -22,14 +22,19 @@ function CreateGame(props) {
             'tasks': taskList,
         }
         console.log(markersJSON);
+        // fetch('https://hackgt-20.herokuapp.com/create_game', {
         fetch('http://localhost:5000/create_game', {
             method: 'POST',
             headers: {
-                "content_type":"application/json",
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(markersJSON),
         })
-        .then((response) => console.log(response));
+        .then(response => response.text())
+        .then((data) => {
+            console.log(data);
+            alert("Locations submitted. Your code is " + data);
+        });
 
         console.log("SUBMIT CALLED");
     }
@@ -54,6 +59,7 @@ function CreateGame(props) {
         
 
     );
+
 }
 
 export default CreateGame;

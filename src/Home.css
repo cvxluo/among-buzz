@@ -5,39 +5,46 @@
 }
 
 .button {
-    background-color: rgb(220, 234, 245);
-    color: rgb(56, 55, 55);
-    padding: 20px 20px;
+    background-color: #c2e0f8;
+    color: #056674;
     text-align: center;
     font-family: f;
     font-size: 100px;
     font-weight: bold;
-    position: fixed;
+    position: absolute;
     cursor: pointer;
+    margin: 20px ;
+    float: center;
+    top: 30%;
+    bottom: 15%;
+    z-index: 0;
 }
 
-#para{
-        font-family: Georgia, 'Times New Roman', Times, serif; 
-        font-size: 100px; 
-        color: rgb(56, 55, 55)
+#para {
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    z-index: 2;
+    font-size: 100px; 
+    color: rgb(22, 20, 21);
+    -webkit-text-stroke: 3px #7bb8eb
 }
 
-.split{
-    height:100%;
-    width: 50%;
+.split {
+    width: 45%;
+    height: 30%;
+    
+    top: 35%;
+    left:auto;
+    right:auto;
     position: fixed;
-    z-index: 1;
-    top: 0;
     overflow-x: hidden;
-    padding-top: 20px; 
 }
 
 .left {
-    left:0;
+    left: 0;
 }
 
 .right {
-    right:0;
+    right: 0;
 }
 
 .centered {
@@ -50,5 +57,9 @@
 @media (max-width:768px) {
     .button{
         font-size: 40px;
+    }
+
+    #para {
+        font-size: 65px;
     }
 }
