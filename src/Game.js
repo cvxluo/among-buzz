@@ -36,6 +36,9 @@ function Game(props) {
   const { data, gameCode } = props;
   const tasks = data['tasks'];
   const uid = data.id;
+  console.log(data);
+  const isImposter = data.is_impostor;
+  console.log("IS IMPOSTOR IN GAME", isImposter)
 
 
   const killPlayer = (playerID) => {
@@ -140,52 +143,54 @@ function Game(props) {
   return (
     <div>
       <p className = "format menu">WELCOME TO THE GAME</p>
-      <p>{'Can complete task: ' + inTaskRange}</p>
-      <div>
-        <p>Nearby players</p>
-        <li>
-          {(amIAlive) ?
-            playersInRange.map(
-              (player) => (
-                <ol>
-                  <button
-                  onClick={() => killPlayer(player)}
-                  >
-                    {player.username}
-                  </button>
-                </ol>
+      {(isImposter) ? 
+        <div>
+          <p>Nearby players</p>
+          <li>
+            {(amIAlive) ?
+              playersInRange.map(
+                (player) => (
+                  <ol>
+                    <button
+                    onClick={() => killPlayer(player)}
+                    >
+                      {player.username}
+                    </button>
+                  </ol>
+                )
               )
-            )
-            :
-            <p> You dead </p>
-          }
-        </li>
+              :
+              <p> You're dead! </p>
+            }
+          </li>
+        </div>
+      :
+      <div>
+        <p>{'Can complete task: ' + inTaskRange}</p>
+        <button className = "buttonn centered"
+          disabled={!inTaskRange}
+          onClick={() => {
+            console.log("COMPLETE TASK CLICKED");
+            console.log("IN RANGE", taskInRange);
+
+            tasks.splice(taskInRange, 1);
+            changeTaskAvailable(false);
+            setTaskInRange(-1);
+
+
+            fetch('http://localhost:5000/update_tasks', {
+            // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
+                method: 'POST',
+                body: gameCode,
+            })
+            .then(response => response.text())
+            .then((data) => {
+                console.log("DATA AQUIRED", data)
+            });
+          }}
+        >Complete task</button>
       </div>
-      <button className = "buttonn centered"
-        disabled={!inTaskRange}
-        onClick={() => {
-          console.log("COMPLETE TASK CLICKED");
-          console.log("IN RANGE", taskInRange);
-
-          tasks.splice(taskInRange, 1);
-          changeTaskAvailable(false);
-          setTaskInRange(-1);
-
-
-          fetch('http://localhost:5000/update_tasks', {
-          // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
-              method: 'POST',
-              body: gameCode,
-          })
-          .then(response => response.text())
-          .then((data) => {
-              console.log("DATA AQUIRED", data)
-          });
-
-
-
-        }}
-      >Complete task</button>
+      }
       <div className="map">
         <GameMap 
           data={data}
@@ -193,6 +198,8 @@ function Game(props) {
           changeTaskAvailable={changeTaskAvailable}
           taskInRange={taskInRange}
           changeTaskInRange={setTaskInRange}
+          isImposter={true}
+          code={gameCode}
         />
       </div>
       <ProgressBar 

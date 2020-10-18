@@ -40,10 +40,11 @@ function JoinGame(props) {
         })
         .then(response => response.text())
         .then((data) => {
-            changeGameCode(code);
             console.log(data);
             setTasks(JSON.parse(data));
-            console.log(data);
+            console.log(data);            
+            setTimeout(() => changeGameCode(code), 1000);
+
         });
 
         console.log("SUBMIT CALLED");

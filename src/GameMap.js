@@ -25,14 +25,17 @@ function MapContainer(props) {
     console.log(longitude);
     */
 
-    const { data, tasks, changeTaskAvailable, changeTaskInRange } = props;
+    const { data, changeTaskAvailable, changeTaskInRange, code } = props;
 
     const uid = data.id;
-    console.log(uid);
-    console.log(tasks);
+    const isImpostor = data['is_impostor'];
+    const tasks = data['tasks'];
+    console.log("IS IMPOSTOR IN MAP", isImpostor);
 
     const [isShowingInfo, showInfoWindow] = useState(false);
     const [activeMarker, setActiveMarker] = useState({});
+
+    const [otherPlayers, setOtherPlayers] = useState([]);
 
 
     useEffect(() => {
@@ -72,6 +75,25 @@ function MapContainer(props) {
     }
 
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+          fetch('http://localhost:5000/get_players_in_game', {
+            // fetch('https://hackgt-20.herokuapp.com/update_player_location', {
+                method: 'POST',
+                body: code,
+            })
+            .then(response => response.text())
+            .then((data) => {
+                const parsed = JSON.parse(data);
+                const players = parsed['players'];
+                
+                setOtherPlayers(players);
+                console.log("PLAYERS IN GAME", parsed);
+            });
+    
+        }, 3000);
+        return () => clearInterval(interval);
+      });
 
     const style = {
         width: '100%',
@@ -92,7 +114,7 @@ function MapContainer(props) {
 
         >
 
-            {
+            {!isImpostor ?
                 tasks.map(
                     (coords, index) => (
                         <Circle
@@ -100,6 +122,24 @@ function MapContainer(props) {
                             center={{
                                 lat: parseFloat(coords.lat),
                                 lng: parseFloat(coords.long),
+                            }}
+                            key={index}
+                            strokeColor='transparent'
+                            strokeOpacity={0}
+                            strokeWeight={5}
+                            fillColor='#FF0000'
+                            fillOpacity={0.2}
+                        />
+                    )
+                )
+                :
+                otherPlayers.map(
+                    (player, index) => (
+                        <Circle
+                            radius={4}
+                            center={{
+                                lat: parseFloat(player.lat),
+                                lng: parseFloat(player.long),
                             }}
                             key={index}
                             strokeColor='transparent'

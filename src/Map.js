@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 
@@ -14,7 +14,7 @@ function MapContainer(props) {
         timestamp,
         accuracy,
         error,
-    } = usePosition(true, {enableHighAccuracy: true});
+    } = usePosition(false, {enableHighAccuracy: true});
 
     /*
     console.log(error);
@@ -27,6 +27,17 @@ function MapContainer(props) {
     const [isShowingInfo, showInfoWindow] = useState(false);
     const [activeMarker, setActiveMarker] = useState({});
 
+    
+    const [initLat, setInitLat] = useState();
+    const [initLong, setInitLong] = useState();
+
+    useEffect(() => {
+        if (!initLat || !initLong) {
+            setInitLat(latitude);
+            setInitLong(longitude);
+        }
+
+    }, [latitude, longitude])
 
     console.log(latitude);
     console.log(longitude);
@@ -140,8 +151,8 @@ function MapContainer(props) {
 
             <MyMarker
                 position={{
-                    lat: latitude,
-                    lng: longitude,
+                    lat: initLat,
+                    lng: initLong,
                 }}
                 title={"My Marker"}
             />
