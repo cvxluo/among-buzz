@@ -32,6 +32,7 @@ function Game(props) {
 
   const { data, gameCode } = props;
   const tasks = data['tasks'];
+  const uid = data.id;
 
 
   useEffect(() => {
@@ -50,10 +51,44 @@ function Game(props) {
             setCompletedAmount(((parsed.total - parsed.incomplete) / parsed.incomplete)*100);
         });
 
-
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+
+      // 235710
+      if (latitude || longitude) {
+        console.log("UPDATING LOCATION");
+        const player_location_info = {
+          'lat': latitude,
+          'long': longitude,
+          'playerID': uid,
+        };
+        console.log(player_location_info);
+        fetch('http://localhost:5000/update_player_location', {
+        // fetch('https://hackgt-20.herokuapp.com/update_player_location', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(player_location_info),
+        })
+        .then(response => response.text())
+        .then((data) => {
+            const parsed = JSON.parse(data);
+            console.log("PARSED RESPONSE", parsed);
+        });
+      }
+      
+      
+
+
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [latitude, longitude, uid]);
 
 
   return (
