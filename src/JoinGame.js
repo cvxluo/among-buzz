@@ -17,6 +17,7 @@ function JoinGame(props) {
         .then(response => response.text())
         .then((data) => {
             props.changeGameCode(code);
+            console.log(data);
             props.setTasks(JSON.parse(data));
             console.log(data);
         });
@@ -28,7 +29,6 @@ function JoinGame(props) {
         <div>
             <form onSubmit={onSubmit}>
                 <label>
-                    <p>Code:</p>
                     <input className = "button1 up"
                         type="text" 
                         placeholder = "Game PIN"

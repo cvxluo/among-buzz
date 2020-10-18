@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+
+import LocationMarker from './MyMarker';
 
 import { Map, InfoWindow, Marker, Circle, GoogleApiWrapper } from 'google-maps-react';
 import { usePosition } from 'use-position';
+
+
 
 
 function MapContainer(props) {
@@ -20,14 +24,31 @@ function MapContainer(props) {
     console.log(longitude);
     */
 
-    const { data } = props;
+    const { data, tasks, changeTaskAvailable, changeTaskInRange } = props;
 
-    const tasks = data.tasks;
+    const uid = data.id;
+    console.log(uid);
     console.log(tasks);
 
     const [isShowingInfo, showInfoWindow] = useState(false);
     const [activeMarker, setActiveMarker] = useState({});
 
+
+    useEffect(() => {
+        tasks.forEach((task, index) => {
+            console.log(typeof(parseFloat(task.lat.toFixed(7))), typeof(latitude));
+            const dLat = Math.abs(parseFloat(task.lat) - latitude);
+            const dLong = Math.abs(parseFloat(task.long) - longitude)
+            console.log(dLat);
+            console.log(dLong);
+            if ((dLat + dLong) < 0.0001) {
+                console.log("IN RANGE DETECED");
+                changeTaskInRange(index);
+                changeTaskAvailable(true);
+                
+            }
+        });
+    }, [latitude, longitude])
 
     const onMarkerClick = (props, marker, e, i) => {
         showInfoWindow(true);
@@ -53,7 +74,6 @@ function MapContainer(props) {
     }
 
 
-    // 280991
 
     const style = {
         width: '100%',
@@ -69,6 +89,8 @@ function MapContainer(props) {
                 lng: (longitude) ? longitude : -84.0,
             }}
             style={style}
+            draggable={false}
+
         >
 
             {
@@ -105,6 +127,14 @@ function MapContainer(props) {
 
                     </div>
             </InfoWindow>
+
+            <LocationMarker
+                position={{
+                    lat: latitude,
+                    lng: longitude,
+                }}
+                title={"My Marker"}
+            />
         </Map>
     );
   }

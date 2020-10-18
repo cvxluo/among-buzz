@@ -24,18 +24,40 @@ function Game(props) {
     error,
   } = usePosition(true, {enableHighAccuracy: true});
 
+  const [inTaskRange, changeTaskAvailable] = useState(false);
+  const [taskInRange, setTaskInRange] = useState();
+
   const { data } = props;
+  const tasks = data['tasks'];
 
   return (
     <div>
-      <button
-      disabled={true}
+      <p className = "format menu">WELCOME TO THE GAME</p>
+      <p>{'Can complete task: ' + inTaskRange}</p>
+      <button className = "buttonn centered"
+        disabled={!inTaskRange}
+        onClick={() => {
+          console.log("COMPLETE TASK CLICKED");
+          console.log("IN RANGE", taskInRange);
+
+          tasks.splice(taskInRange, 1);
+          changeTaskAvailable(false);
+          setTaskInRange(-1);
+
+
+
+        }}
       >Complete task</button>
       <div className="map">
-        <p className = "format">game</p>
         <GameMap 
           data={data}
+          tasks={tasks}
+          changeTaskAvailable={changeTaskAvailable}
+          taskInRange={taskInRange}
+          changeTaskInRange={setTaskInRange}
         />
+      </div>
+      <div>
       </div>
     </div>
   );

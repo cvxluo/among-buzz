@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 
 import { Map, InfoWindow, Marker, Circle, GoogleApiWrapper } from 'google-maps-react';
 import { usePosition } from 'use-position';
+import MyMarker from './MyMarker';
 
 
 function MapContainer(props) {
@@ -118,7 +119,7 @@ function MapContainer(props) {
                 strokeColor='transparent'
                 strokeOpacity={0}
                 strokeWeight={5}
-                fillColor='#FF0000'
+                fillColor='#00cae9'
                 fillOpacity={0.2}
             />
 
@@ -137,11 +138,13 @@ function MapContainer(props) {
                     </div>
             </InfoWindow>
 
-            {/* <Marker
-                lat={11.0168}
-                lng={76.9558}
-                text="My Marker"
-            /> */}
+            <MyMarker
+                position={{
+                    lat: latitude,
+                    lng: longitude,
+                }}
+                title={"My Marker"}
+            />
         </Map>
     );
   }

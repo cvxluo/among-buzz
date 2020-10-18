@@ -5,6 +5,25 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: rgb(22, 20, 21);
     -webkit-text-stroke: 3px #7bb8eb;
+    font-size: 100px;
+    font-weight: bold;
+}
+
+.buttonn{
+    top:420px;
+    background-color: #c2e0f8;
+    color: #0d191b;
+    text-align: center;
+    font-family: f;
     font-size: 25px;
     font-weight: bold;
+    position: absolute;
+    cursor: pointer;
+    float: center;
+}
+
+@media (max-width: 768px) {
+    .format {
+        font-size: 75px;
+    }
 }

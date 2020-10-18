@@ -20,6 +20,12 @@
     z-index: 0;
 }
 
+.howtoplay {
+    position: absolute;
+    margin: 0 auto;
+    top: 20px;
+    left: 20px;
+}
 #para {
     font-family: Georgia, 'Times New Roman', Times, serif; 
     z-index: 2;

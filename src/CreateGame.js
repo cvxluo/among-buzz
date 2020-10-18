@@ -8,6 +8,8 @@ function CreateGame(props) {
 
     const [markers, setMarkers] = useState([]);
 
+    const [recievedCode, setRecievedCode] = useState();
+
     const onSubmit = (event) => {
         event.preventDefault();
         const taskList = markers.map(
@@ -33,6 +35,7 @@ function CreateGame(props) {
         .then(response => response.text())
         .then((data) => {
             console.log(data);
+            setRecievedCode(data);
             alert("Locations submitted. Your code is " + data);
         });
 
@@ -43,6 +46,7 @@ function CreateGame(props) {
     return (
         <div>
             <div>
+                <p>{recievedCode}</p>
                 <button
                     onClick={onSubmit}
                 >Submit
