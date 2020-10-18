@@ -30,7 +30,6 @@ function MapContainer(props) {
     const uid = data.id;
     const isImpostor = data['is_impostor'];
     const tasks = data['tasks'];
-    console.log("IS IMPOSTOR IN MAP", isImpostor);
 
     const [isShowingInfo, showInfoWindow] = useState(false);
     const [activeMarker, setActiveMarker] = useState({});
@@ -77,8 +76,8 @@ function MapContainer(props) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-          fetch('http://localhost:5000/get_players_in_game', {
-            // fetch('https://hackgt-20.herokuapp.com/update_player_location', {
+          // fetch('http://localhost:5000/get_players_in_game', {
+            fetch('https://hackgt-20.herokuapp.com/update_player_location', {
                 method: 'POST',
                 body: code,
             })
@@ -88,7 +87,7 @@ function MapContainer(props) {
                 const players = parsed['players'];
                 
                 setOtherPlayers(players);
-                console.log("PLAYERS IN GAME", parsed);
+
             });
     
         }, 3000);
