@@ -41,7 +41,7 @@ function Game(props) {
 
   const killPlayer = (playerID) => {
 
-    fetch('https://34.121.161.149:5000/kill', {
+    fetch('http://34.121.161.149:5000/kill', {
     // fetch('http://localhost:5000/kill', {
     //    fetch('https://hackgt-20.herokuapp.com/kill', {
             method: 'POST',
@@ -64,7 +64,7 @@ function Game(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       console.log("GAME CODE USING:", gameCode);
-      fetch('https://34.121.161.149:5000/current_tasks', {
+      fetch('http://34.121.161.149:5000/current_tasks', {
       // fetch('http://localhost:5000/current_tasks', {
         // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
             method: 'POST',
@@ -94,7 +94,7 @@ function Game(props) {
           'playerID': uid,
         };
         console.log(player_location_info);
-        fetch('https://34.121.161.149:5000/update_player_location', {
+        fetch('http://34.121.161.149:5000/update_player_location', {
         // fetch('http://localhost:5000/update_player_location', {
         // fetch('https://hackgt-20.herokuapp.com/update_player_location', {
             method: 'POST',
@@ -110,7 +110,7 @@ function Game(props) {
       }
       
 
-      fetch('https://34.121.161.149:5000/get_players_in_game', {
+      fetch('http://34.121.161.149:5000/get_players_in_game', {
       // fetch('http://localhost:5000/get_players_in_game', {
       //  fetch('https://hackgt-20.herokuapp.com/update_player_location', {
             method: 'POST',
@@ -180,7 +180,7 @@ function Game(props) {
             setTaskInRange(-1);
 
 
-            fetch('https://34.121.161.149:5000/update_tasks', {
+            fetch('http://34.121.161.149:5000/update_tasks', {
             // fetch('http://localhost:5000/update_tasks', {
             // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
                 method: 'POST',
