@@ -29,10 +29,34 @@ function Game(props) {
   const [taskInRange, setTaskInRange] = useState();
 
   const [completedAmount, setCompletedAmount] = useState(0);
+  const [playersInRange, setPlayersInRange] = useState([]);
+
+  const [amIAlive, setLifeStatus] = useState(true);
 
   const { data, gameCode } = props;
   const tasks = data['tasks'];
   const uid = data.id;
+
+
+  const killPlayer = (playerID) => {
+
+    fetch('http://localhost:5000/kill', {
+        // fetch('https://hackgt-20.herokuapp.com/kill', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              'killerID': uid,
+              'victimID': playerID.uid,
+            }),
+        })
+        .then(response => response.text())
+        .then((data) => {
+          console.log("AFTER KILL", data);
+        }
+    );
+  }
 
 
   useEffect(() => {
@@ -59,7 +83,6 @@ function Game(props) {
   useEffect(() => {
     const interval = setInterval(() => {
 
-      // 235710
       if (latitude || longitude) {
         console.log("UPDATING LOCATION");
         const player_location_info = {
@@ -78,15 +101,38 @@ function Game(props) {
         })
         .then(response => response.text())
         .then((data) => {
-            const parsed = JSON.parse(data);
-            console.log("PARSED RESPONSE", parsed);
+            setLifeStatus(JSON.parse(data.toLowerCase()))
         });
       }
       
       
+      fetch('http://localhost:5000/get_players_in_game', {
+        // fetch('https://hackgt-20.herokuapp.com/update_player_location', {
+            method: 'POST',
+            body: gameCode,
+        })
+        .then(response => response.text())
+        .then((data) => {
+            const parsed = JSON.parse(data);
+            const players = parsed['players'];
+            
+            // 333857
+            setPlayersInRange(players.filter(
+              (player) => {
+                if (player.uid === uid) return false;
+                if (!player.alive) return false;
+                const dLat = Math.abs(parseFloat(player.lat) - latitude);
+                const dLong = Math.abs(parseFloat(player.long) - longitude)
+                if ((dLat + dLong) < 0.0001) {
+                  return true;
+                }
+                return false;
+              }
+            ))
+            console.log("PLAYERS IN GAME", parsed);
+        });
 
-
-    }, 2000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [latitude, longitude, uid]);
 
@@ -95,6 +141,26 @@ function Game(props) {
     <div>
       <p className = "format menu">WELCOME TO THE GAME</p>
       <p>{'Can complete task: ' + inTaskRange}</p>
+      <div>
+        <p>Nearby players</p>
+        <li>
+          {(amIAlive) ?
+            playersInRange.map(
+              (player) => (
+                <ol>
+                  <button
+                  onClick={() => killPlayer(player)}
+                  >
+                    {player.username}
+                  </button>
+                </ol>
+              )
+            )
+            :
+            <p> You dead </p>
+          }
+        </li>
+      </div>
       <button className = "buttonn centered"
         disabled={!inTaskRange}
         onClick={() => {

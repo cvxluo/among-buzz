@@ -37,11 +37,8 @@ function MapContainer(props) {
 
     useEffect(() => {
         tasks.forEach((task, index) => {
-            console.log(typeof(parseFloat(task.lat.toFixed(7))), typeof(latitude));
             const dLat = Math.abs(parseFloat(task.lat) - latitude);
             const dLong = Math.abs(parseFloat(task.long) - longitude)
-            console.log(dLat);
-            console.log(dLong);
             if ((dLat + dLong) < 0.0001) {
                 console.log("IN RANGE DETECED");
                 changeTaskInRange(index);

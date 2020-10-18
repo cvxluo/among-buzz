@@ -1,3 +1,6 @@
+/* acquired from https://levelup.gitconnected.com/reactjs-google-maps-with-custom-marker-ece0c7d184c4 */
+
+
 /* .marker {
     position: absolute;
     top: 50%;
@@ -41,8 +44,8 @@
     animation-duration: 1s;
   }
   
-  .pulse {
-    background: #d6d4d4;
+/* .pulse {
+    background: black;
     border-radius: 50%;
     height: 14px;
     width: 14px;
@@ -52,7 +55,8 @@
     margin: 11px 0px 0px -12px;
     transform: rotateX(55deg);
     z-index: -2;
-  }
+    transform: translateY(-100px);
+} 
   .pulse::after {
     content: "";
     border-radius: 50%;
@@ -81,7 +85,7 @@
       transform: scale(1.2, 1.2);
       opacity: 0;
     }
-  }
+  } */
   
   @keyframes bounce {
     0% {
