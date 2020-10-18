@@ -22,19 +22,31 @@
     float: center;
 }
 
-@media (max-width: 686px) {
-    .buttonn {
-        top: 30%;
-    }
-}
 
 @media (max-width: 686px) {
     .format {
         font-size: 50px;
     }
+    .buttonn {
+        top: 27%;
+    }
+}
 
+@media (min-width: 686px) {
+    .format {
+        font-size: 50px;
+    }
     .buttonn {
         top: 20%;
+    }
+}
+
+@media (min-width: 768px) {
+    .format {
+        font-size: 100px;
+    }
+    .buttonn {
+        top: 50%;
     }
 }
 

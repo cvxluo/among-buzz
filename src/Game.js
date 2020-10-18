@@ -49,6 +49,8 @@ function Game(props) {
             console.log("PARSED", parsed);
             setCompletedAmount(((parsed.total - parsed.incomplete) / parsed.incomplete)*100);
         });
+
+
     }, 5000);
     return () => clearInterval(interval);
   }, []);
