@@ -30,8 +30,9 @@ function JoinGame(props) {
             'username': username,
         };
 
+        fetch('http://34.121.161.149:5000/join_game', {
         // fetch('http://localhost:5000/join_game', {
-        fetch('https://hackgt-20.herokuapp.com/create_game', {
+        // fetch('https://hackgt-20.herokuapp.com/create_game', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

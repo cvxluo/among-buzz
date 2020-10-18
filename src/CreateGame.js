@@ -24,8 +24,9 @@ function CreateGame(props) {
             'tasks': taskList,
         }
         console.log(markersJSON);
-        fetch('https://hackgt-20.herokuapp.com/create_game', {
+        // fetch('https://hackgt-20.herokuapp.com/create_game', {
         // fetch('http://localhost:5000/create_game', {
+        fetch('http://34.121.161.149:5000/create_game', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

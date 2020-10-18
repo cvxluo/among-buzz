@@ -41,8 +41,9 @@ function Game(props) {
 
   const killPlayer = (playerID) => {
 
-    //fetch('http://localhost:5000/kill', {
-        fetch('https://hackgt-20.herokuapp.com/kill', {
+    fetch('http://34.121.161.149:5000/kill', {
+    // fetch('http://localhost:5000/kill', {
+    //    fetch('https://hackgt-20.herokuapp.com/kill', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -63,8 +64,9 @@ function Game(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       console.log("GAME CODE USING:", gameCode);
+      fetch('http://34.121.161.149:5000/current_tasks', {
       // fetch('http://localhost:5000/current_tasks', {
-        fetch('https://hackgt-20.herokuapp.com/current_tasks', {
+        // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
             method: 'POST',
             body: gameCode,
         })
@@ -92,8 +94,9 @@ function Game(props) {
           'playerID': uid,
         };
         console.log(player_location_info);
+        fetch('http://34.121.161.149:5000/update_player_location', {
         // fetch('http://localhost:5000/update_player_location', {
-        fetch('https://hackgt-20.herokuapp.com/update_player_location', {
+        // fetch('https://hackgt-20.herokuapp.com/update_player_location', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -106,9 +109,10 @@ function Game(props) {
         });
       }
       
-      
+
+      fetch('http://34.121.161.149:5000/get_players_in_game', {
       // fetch('http://localhost:5000/get_players_in_game', {
-        fetch('https://hackgt-20.herokuapp.com/update_player_location', {
+      //  fetch('https://hackgt-20.herokuapp.com/update_player_location', {
             method: 'POST',
             body: gameCode,
         })
@@ -176,8 +180,9 @@ function Game(props) {
             setTaskInRange(-1);
 
 
+            fetch('http://34.121.161.149:5000/update_tasks', {
             // fetch('http://localhost:5000/update_tasks', {
-            fetch('https://hackgt-20.herokuapp.com/current_tasks', {
+            // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
                 method: 'POST',
                 body: gameCode,
             })

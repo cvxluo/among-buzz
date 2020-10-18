@@ -76,8 +76,9 @@ function MapContainer(props) {
 
     useEffect(() => {
         const interval = setInterval(() => {
+        fetch('http://34.121.161.149:5000/get_players_in_game', {
           // fetch('http://localhost:5000/get_players_in_game', {
-            fetch('https://hackgt-20.herokuapp.com/update_player_location', {
+          //  fetch('https://hackgt-20.herokuapp.com/update_player_location', {
                 method: 'POST',
                 body: code,
             })
