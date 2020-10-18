@@ -10,7 +10,7 @@
 }
 
 .buttonn{
-    top:420px;
+    top: 50%;
     background-color: #c2e0f8;
     color: #0d191b;
     text-align: center;
@@ -22,8 +22,24 @@
     float: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 686px) {
+    .buttonn {
+        top: 30%;
+    }
+}
+
+@media (max-width: 686px) {
     .format {
-        font-size: 75px;
+        font-size: 50px;
+    }
+
+    .buttonn {
+        top: 20%;
+    }
+}
+
+@media (min-width: 1371px) {
+    .buttonn {
+        top: 35%;
     }
 }

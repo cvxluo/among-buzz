@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import LocationMarker from './MyMarker';
+import ProgressBar from './ProgressBar';
 
 import { Map, InfoWindow, Marker, Circle, GoogleApiWrapper } from 'google-maps-react';
 import { usePosition } from 'use-position';
@@ -79,6 +80,7 @@ function MapContainer(props) {
         width: '100%',
         height: '95%'
     }
+    // 108585
 
     return (
         <Map 

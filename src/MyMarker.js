@@ -6,7 +6,7 @@ const MyMarker = (props) => {
     return (
       <div>
         <div
-          className="pin bounce"
+          className="marker pin bounce"
           style={{ backgroundColor: color, cursor: 'pointer' }}
           title={name}
         />

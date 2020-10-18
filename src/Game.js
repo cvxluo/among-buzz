@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { usePosition } from 'use-position';
  
 import GameMap from './GameMap';
+import ProgressBar from './ProgressBar';
 
 import './Game.css';
 
@@ -27,8 +28,31 @@ function Game(props) {
   const [inTaskRange, changeTaskAvailable] = useState(false);
   const [taskInRange, setTaskInRange] = useState();
 
-  const { data } = props;
+  const [completedAmount, setCompletedAmount] = useState(0);
+
+  const { data, gameCode } = props;
   const tasks = data['tasks'];
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("GAME CODE USING:", gameCode);
+      fetch('http://localhost:5000/current_tasks', {
+        // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
+            method: 'POST',
+            body: gameCode,
+        })
+        .then(response => response.text())
+        .then((data) => {
+            console.log("DATA AQUIRED", data)
+            const parsed = JSON.parse(data);
+            console.log("PARSED", parsed);
+            setCompletedAmount(((parsed.total - parsed.incomplete) / parsed.incomplete)*100);
+        });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
 
   return (
     <div>
@@ -45,6 +69,17 @@ function Game(props) {
           setTaskInRange(-1);
 
 
+          fetch('http://localhost:5000/update_tasks', {
+          // fetch('https://hackgt-20.herokuapp.com/current_tasks', {
+              method: 'POST',
+              body: gameCode,
+          })
+          .then(response => response.text())
+          .then((data) => {
+              console.log("DATA AQUIRED", data)
+          });
+
+
 
         }}
       >Complete task</button>
@@ -57,8 +92,9 @@ function Game(props) {
           changeTaskInRange={setTaskInRange}
         />
       </div>
-      <div>
-      </div>
+      <ProgressBar 
+        completed={completedAmount}
+      />
     </div>
   );
 }
